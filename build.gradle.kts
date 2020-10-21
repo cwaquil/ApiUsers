@@ -2,6 +2,7 @@ plugins {
     java
     kotlin("jvm") version "1.3.72"
     jacoco
+    id ("org.flywaydb.flyway") version "6.1.0"
 }
 
 group = "org.backendlabs"
@@ -10,6 +11,18 @@ version = "1.0-SNAPSHOT"
 repositories {
     mavenCentral()
     jcenter()
+}
+
+buildscript {
+    dependencies {
+        classpath("com.h2database:h2:1.4.197")
+    }
+}
+
+flyway {
+    url = "jdbc:postgresql://localhost:5432/postgres"
+    user = "postgres"
+    password = "123456"
 }
 
 dependencies {
@@ -23,6 +36,7 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-core:0.27.1")
     implementation("org.jetbrains.exposed:exposed-dao:0.27.1")
     implementation("org.jetbrains.exposed:exposed-jdbc:0.27.1")
+    implementation("org.jetbrains.exposed:exposed-java-time:0.27.1")
     implementation("org.postgresql:postgresql:42.2.2")
     testImplementation("org.junit.jupiter:junit-jupiter:5.6.2")
     testImplementation("io.mockk:mockk:1.10.0")
