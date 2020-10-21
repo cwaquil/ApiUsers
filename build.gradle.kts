@@ -13,12 +13,6 @@ repositories {
     jcenter()
 }
 
-buildscript {
-    dependencies {
-        classpath("com.h2database:h2:1.4.197")
-    }
-}
-
 flyway {
     url = "jdbc:postgresql://localhost:5432/postgres"
     user = "postgres"
