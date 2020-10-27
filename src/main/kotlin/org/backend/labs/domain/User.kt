@@ -3,7 +3,7 @@ package org.backend.labs.domain
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.`java-time`.datetime
 
-object UserTable : Table("user") {
+object UserTable : Table("userTable") {
 
     private const val SIZE = 32
 
@@ -15,4 +15,4 @@ object UserTable : Table("user") {
     override val primaryKey = PrimaryKey(id, name = "pk_id")
 }
 
-data class User(val name: String, val email: String)
+data class User(val id: Int, val name: String, val email: String)
