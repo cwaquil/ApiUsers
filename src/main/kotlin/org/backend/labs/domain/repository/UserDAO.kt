@@ -19,11 +19,6 @@ class UserDAO {
 }
 
 private fun ResultRow.toUser() = User(
-        name = this[UserTable.name],
-        email = this[UserTable.email]
-)
-
-private fun ResultRow.toUserReturned() = UserReturned(
         id = this[UserTable.id],
         name = this[UserTable.name],
         email = this[UserTable.email]

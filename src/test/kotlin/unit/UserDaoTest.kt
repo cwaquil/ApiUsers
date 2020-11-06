@@ -1,36 +1,29 @@
 package unit
 
 import io.mockk.mockk
+import net.bytebuddy.matcher.ElementMatchers.any
 import org.backend.labs.domain.User
 import org.backend.labs.domain.UserTable
 import org.backend.labs.domain.repository.UserDAO
+import org.jetbrains.exposed.sql.insert
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class UserDaoTest {
-
-    object mockTable {
-        val id = 1
-        val name = "bob"
-        val email = "bob@gmail.com"
-        val createdAt = "2020-11-05"
-    }
-
-    private val userTable = mockk<mockTable>(relaxed = true)
 
     private val userDAO = UserDAO()
 
     @Test
     fun `Given an user when it does not exist in the base should create user`() {
         // Arrange
-        val expectedTable = User()
+        val expectedUser = User(1,"bob", "bob@gmail.com")
 
-        every { userTable }
+        every { UserTable.insert ( any() ) }
 
 
         // Action
+        val result = userDAO.save("bob", "bob@gmail.com")
 
-        userDAO.save("bob", "bob@gmail.com")
 
 
         // Assert
