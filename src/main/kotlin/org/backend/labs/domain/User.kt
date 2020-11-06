@@ -11,8 +11,10 @@ object UserTable : Table("userTable") {
     val name = varchar("name", SIZE)
     val email = varchar("email", SIZE)
     val createdAt = datetime("created_at")
-
+    
     override val primaryKey = PrimaryKey(id, name = "pk_id")
 }
 
-data class User(val id: Int, val name: String, val email: String)
+data class User(val name: String, val email: String)
+
+data class UserReturned(val id: Int, val name: String, val email: String)

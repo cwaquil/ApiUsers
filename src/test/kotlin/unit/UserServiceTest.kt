@@ -54,20 +54,20 @@ class SaveServiceTest {
 //        assertEquals(expectedMessage, result)
 //    }
 //
-////    @Test
-////    fun `Given a customer already registered should throw an EmailDuplicatedException`() {
-////        val email = "bob@gmail.com"
-////        val name = "bob"
-////        val expectedMessage = "Email already registered"
-////
-////        every { userDAO.save(name, email) } throws Expection()
-////
-////        val result = assertThrows<EmailDuplicatedException> {
-////            UserService(userDAO).saveUser("bob", email = "bob@gmail.com")
-////        }.message
-////
-////        assertEquals(expectedMessage, result)
-////    }
+//    @Test
+//    fun `Given a customer already registered should throw an EmailDuplicatedException`() {
+//        val email = "bob@gmail.com"
+//        val name = "bob"
+//        val expectedMessage = "Email already registered"
+//
+//        every { userDAO.save(name, email) } throws Expection()
+//
+//        val result = assertThrows<EmailDuplicatedException> {
+//            UserService(userDAO).saveUser("bob", email = "bob@gmail.com")
+//        }.message
+//
+//        assertEquals(expectedMessage, result)
+//    }
 
 
 }
