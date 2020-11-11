@@ -1,11 +1,14 @@
 package unit
 
-import io.mockk.mockk
-import net.bytebuddy.matcher.ElementMatchers.any
+import io.mockk.every
+import io.mockk.mockkStatic
 import org.backend.labs.domain.User
 import org.backend.labs.domain.UserTable
 import org.backend.labs.domain.repository.UserDAO
-import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.Expression
+import org.jetbrains.exposed.sql.ResultRow
+import org.jetbrains.exposed.sql.Transaction
+import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -15,21 +18,20 @@ class UserDaoTest {
 
     @Test
     fun `Given an user when it does not exist in the base should create user`() {
-        // Arrange
-        val expectedUser = User(1,"bob", "bob@gmail.com")
 
-        every { UserTable.insert ( any() ) }
+        val expectedUser = User(1, "bob", "bob@gmail.com")
 
+        val expressionMap = mutableMapOf<Expression<*>, Any?>()
+        expressionMap[UserTable.id] = 1
+        expressionMap[UserTable.name] = "bob"
+        expressionMap[UserTable.email] = "bob@gmail.com"
 
-        // Action
+        val resultRow = ResultRow.createAndFillValues(expressionMap)
+
+        mockkStatic("org.jetbrains.exposed.sql.transactions.ThreadLocalTransactionManagerKt")
+        every { transaction(statement = any<Transaction.() -> ResultRow>()) } returns resultRow
+
         val result = userDAO.save("bob", "bob@gmail.com")
-
-
-
-        // Assert
-        // Oque espero?
-//        Espero que meu metodo save da UserDAO funcione
-
 
         assertEquals(expectedUser, result)
     }
